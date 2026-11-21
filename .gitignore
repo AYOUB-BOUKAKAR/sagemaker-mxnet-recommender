@@ -1,0 +1,12 @@
+# donnees brutes et modeles : on ne les commit pas
+data/raw/
+models/*
+!models/.gitkeep
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+# secrets AWS, jamais dans git
+.env
+*.pem
+credentials
