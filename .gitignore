@@ -1,5 +1,7 @@
 # donnees brutes et modeles : on ne les commit pas
 data/raw/
+data/processed/*
+!data/processed/.gitkeep
 models/*
 !models/.gitkeep
 __pycache__/
