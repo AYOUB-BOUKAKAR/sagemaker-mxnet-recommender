@@ -1,0 +1,23 @@
+FROM python:3.8-slim
+
+WORKDIR /app
+
+# libs systeme dont mxnet a besoin
+RUN apt-get update && apt-get install -y --no-install-recommends libgomp1 libquadmath0 \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# ici le code est copie dans l'image (pas de volume)
+COPY src /app/src
+COPY api /app/api
+
+ENV PYTHONPATH=/app/src
+ENV MODEL_DIR=/opt/ml/model
+
+EXPOSE 8080
+
+# SageMaker lance : docker run <image> serve
+ENTRYPOINT ["python", "-m", "api.serve"]
+CMD ["serve"]
