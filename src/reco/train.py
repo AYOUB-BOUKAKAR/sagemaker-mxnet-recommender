@@ -22,6 +22,7 @@ def main():
     ap.add_argument("--k", type=int, default=32)
     ap.add_argument("--lr", type=float, default=0.005)
     ap.add_argument("--wd", type=float, default=1e-5)
+    ap.add_argument("--bias_wd", type=int, default=1)   # 0 = pas de weight decay sur les biais
     ap.add_argument("--drop", type=float, default=0.0)
     ap.add_argument("--epochs", type=int, default=60)
     ap.add_argument("--patience", type=int, default=5)
@@ -42,6 +43,9 @@ def main():
     net.initialize(mx.init.Normal(0.05), ctx=ctx)
     net.bu.weight.initialize(mx.init.Zero(), ctx=ctx, force_reinit=True)
     net.bi.weight.initialize(mx.init.Zero(), ctx=ctx, force_reinit=True)
+    if not a.bias_wd:
+       net.bu.weight.wd_mult = 0
+       net.bi.weight.wd_mult = 0
     net.hybridize()
     trainer = gluon.Trainer(net.collect_params(), "adam", {"learning_rate": a.lr, "wd": a.wd})
     loss_fn = gluon.loss.L2Loss()
