@@ -1,6 +1,6 @@
 # Systeme de recommandation - MXNet + Amazon SageMaker
 
-Mini-projet Cloud (ENSAH) - recommandation de films avec Apache MXNet,
+Mini-projet Cloud - recommandation de films avec Apache MXNet,
 deploiement sur Amazon SageMaker.
 
 ## Etat d'avancement
